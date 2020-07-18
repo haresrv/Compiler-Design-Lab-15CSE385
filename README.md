@@ -8,7 +8,8 @@ Repo containing my work done by me during course of Compiler Design
 3. Consider an input file which contains input strings (lexemes) of valid and invalid South African person identification numbers. Tokenize the valid and invalid             strings (lexemes) using ANTLR.
 
 4. Recursive Descent Parser for
-               E → E or T 
+
+               E → E or T                 
                  → E nor T 
                  → E xor T 
                  → T 
@@ -21,7 +22,10 @@ Repo containing my work done by me during course of Compiler Design
                  → i 
                  → true 
                  → false
-   ANTLR Specs. for
+                 
+   ANTLR Specification for
+   
                S → S(S)S | ϵ
 
  5. Semantic Rules in ANTLR for finding decimal equivalent
+  
