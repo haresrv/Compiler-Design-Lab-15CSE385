@@ -1,0 +1,46 @@
+------------------gram.g4-------------------------------------
+
+
+grammar gram;
+
+en returns [Double val]: e = el '.' f=ex {$val=$e.val+$f.val;System.out.println("Decimal Equivalent is "+$val);};
+
+el returns [Double val]: t=el e1=be {$val=$e1.val+2*$t.val;}
+		| e2=be {$val = $e2.val;};
+
+ex returns [Double val]: e1=be t=ex {$val=($e1.val/2.0)+($t.val/2.0);}
+		| e2=be {$val = $e2.val/2.0;};
+				
+be returns [Double val]:'0'{$val=0.0;}
+		|'1'{$val=1.0;};		
+		
+WS:[ \r\n\t]+ -> skip;		
+
+
+----------------------JAVA-------------------------------
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Token;
+
+public class mainclass
+{
+	public static void main(String a[])
+{
+
+	try
+	{
+		CharStream i = new ANTLRFileStream("C:\\Users\\cb.en.u4cse17119\\eclipse-workspace\\Eval\\src\\input");
+		gramLexer lex = new gramLexer(i);
+		Token t;
+		CommonTokenStream s = new CommonTokenStream(lex);
+		gramParser gp = new gramParser(s);
+		System.out.println(gp.en());
+	}
+	catch(Exception e)
+	{
+		System.out.println(e);
+	}
+
+}
+}

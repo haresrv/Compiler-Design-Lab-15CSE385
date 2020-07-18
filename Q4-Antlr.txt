@@ -1,0 +1,54 @@
+grammar gram;
+
+equation : exp1 {System.out.println("Syntactically correct!!");};
+exp1 	 : LPAREN equation RPAREN equation exp1 |;
+LPAREN	 : '(';
+RPAREN	 : ')';
+WS		 : [\t\r\n]+ ->skip;
+
+
+
+
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.Token;
+
+public class mainclass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try
+		 {
+		 CharStream input = new ANTLRFileStream("C:\\Users\\cb.en.u4cse17119\\eclipse-workspace\\parser\\src\\input");
+	//	 ANTLRInputStream in = new ANTLRInputStream("a*(b-c)");
+	//	 ANTLRStringStream inp = new ANTLRStringStream("12*(5-6)");
+		 
+		 gramLexer lexer = new gramLexer(input);
+		 gramLexer lexer2 = new gramLexer(input);
+
+		 Token token;
+		 
+		 while ((token = lexer.nextToken()).getType()!=-1) {
+			 	
+			 		System.out.println(token.getText()+"---->"+token.getType());
+			 		
+			
+			 }
+		 CommonTokenStream tokens = new CommonTokenStream(lexer2);
+		 
+		 gramParser parse = new gramParser(tokens);
+//		 System.out.println(parse.equation());
+		 ParseTree tree = parse.equation(); // parse; start at prog
+		 System.out.println(tree.toStringTree(parse)); // print tree as text
+			 }
+			 catch(Exception e){
+
+			 System.out.println(e);
+			 }
+		}
+
+	}
